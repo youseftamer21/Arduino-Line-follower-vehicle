@@ -1,0 +1,183 @@
+//ultrasonic//
+int trig=2;
+int echo=4;
+//motors//
+int ena=11;
+int enb=10;
+int in1=13;
+int in2=12;
+int in3=8;
+int in4=7;
+//ir sensors//
+int lsens=5;
+int msens1=A1;
+int msens2=9;
+int rsens1=6;
+int rsens2=A0;
+
+void setup() {
+ // put your setup code here, to run once:
+pinMode(echo,INPUT);
+pinMode (trig,OUTPUT);
+pinMode(ena,OUTPUT);
+pinMode(enb,OUTPUT);
+pinMode(in1,OUTPUT);
+pinMode(in2,OUTPUT);
+pinMode(in3,OUTPUT);
+pinMode(in4,OUTPUT);
+pinMode(lsens,INPUT);
+pinMode(msens1,INPUT);
+pinMode(msens2,INPUT);
+pinMode(rsens1,INPUT);
+pinMode(rsens2,INPUT);
+}
+
+void loop() {
+//begin with ultrasonic code//
+double duration=0.0, distance=0.0;// put your main code here, to run repeatedly:
+digitalWrite(trig, LOW);
+delayMicroseconds(2);
+digitalWrite(trig,HIGH);
+delayMicroseconds(10);
+digitalWrite(trig, LOW);
+
+
+duration= pulseIn(echo,HIGH);
+distance= duration *0.035 /2;
+
+if (distance<30) 
+{digitalWrite(in1,LOW);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);}
+else {// begin the rest of the code, starting with ir sensors//
+  int left;
+  int mid1;
+  int mid2;
+  int right1;
+  int right2;
+
+  left=digitalRead(lsens);
+  mid1=digitalRead(msens1);
+  mid2=digitalRead(msens2);
+  right1=digitalRead(rsens1);
+  right2=digitalRead(rsens2);
+  
+if (left==1 && mid1==0 && mid2==0 && right1==1 &&right2==1)//going forward//
+{analogWrite(ena,120);
+analogWrite(enb,120);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);}
+else if (left==0 && mid1==0 && mid2==0 && right1==1 &&right2==0)//going forward//
+{analogWrite(ena,120);
+analogWrite(enb,120);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);}
+else if (left==0 && mid1==0 && mid2==0 && right1==1 && right2==1)//little left//
+{analogWrite(ena,60);
+analogWrite(enb,60);
+digitalWrite(in1,LOW);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);
+}
+else if (left==0 && mid1==1 && mid2==0 && right1==1 && right2==0)//little left//
+{analogWrite(ena,60);
+analogWrite(enb,60);
+digitalWrite(in1,LOW);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);
+}
+else if (left==0 && mid1==1 && mid2==0 && right1==1 && right2==1)//sharpER left//
+{analogWrite(ena,80);
+analogWrite(enb,80);
+digitalWrite(in1,LOW);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);
+}
+else if ( left==0 && mid1==1 && mid2==1 & right1==1 && right2==1)//sharp left//
+{analogWrite(ena,100);
+analogWrite(enb,100);
+digitalWrite(in1,LOW);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);}
+
+else if (left==1 && mid1==0 && mid2==0 && right1==1 && right2==0)//little right//
+{analogWrite(ena,60);
+analogWrite(enb,60);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);
+}
+else if (left==1 && mid1==0 && mid2==0 && right1==0 && right2==0)//little right//
+{analogWrite(ena,60);
+analogWrite(enb,60);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);
+}
+
+else if (left==1 && mid1==0 && mid2==1 && right1==1 && right2==0) //sharpER right//
+{analogWrite(ena,80);
+analogWrite(enb,80);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);
+}
+else if (left==1 && mid1==1 && mid2==1 && right1==0 && right2==0)//sharp right//
+{analogWrite(ena,100);
+analogWrite(enb,100);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);}
+else if (left==1 && mid1==0 && mid2==1 && right1==0 && right2==0)//sharp right//
+{analogWrite(ena,100);
+analogWrite(enb,100);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);}
+else if (left==1 && mid1==1 && mid2==1 && right1==0 && right2==1) //very sharp right
+{analogWrite(ena,120);
+analogWrite(enb,120);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);}
+else if (left==1 && mid1==1 && mid2==1 && right1==1 && right2==0) //very sharp right
+{analogWrite(ena,120);
+analogWrite(enb,120);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,LOW);}
+else if (left==1 && mid1== 0 && mid2==1 && right1==1 && right2==1) //forward//
+{analogWrite(ena,120);
+analogWrite(enb,120);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);}
+
+else if (left==1 && mid1== 1 && mid2==0 && right1==1 && right2==1) //forward//
+{analogWrite(ena,120);
+analogWrite(enb,120);
+digitalWrite(in1,HIGH);
+digitalWrite(in2,LOW);
+digitalWrite(in3,LOW);
+digitalWrite(in4,HIGH);}
+
+
+}
+}
